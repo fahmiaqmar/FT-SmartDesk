@@ -102,15 +102,6 @@ window.location=
 "tickets.html";
 
 
-  
-  
-
-});
-
-
-}
-
-
 
 let table =
 document.getElementById("ticketTable");
@@ -212,4 +203,14 @@ JSON.stringify(tickets)
 location.reload();
 
 
+}  
+  
+
+});
+
+
 }
+
+
+
+
