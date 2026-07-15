@@ -1,3 +1,6 @@
+<script src="assets/js/checklogin.js"></script>
+
+
 
 let form =
 document.getElementById("ticketForm");
