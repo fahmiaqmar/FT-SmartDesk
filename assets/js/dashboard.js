@@ -1,4 +1,4 @@
-<script src="assets/js/checklogin.js"></script>
+
 
 
 
