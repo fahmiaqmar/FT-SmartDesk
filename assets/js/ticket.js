@@ -1,125 +1,13 @@
-
-
-
-
-let form =
-document.getElementById("ticketForm");
-
-
-
-if(form){
-
-
-form.addEventListener(
-"submit",
-function(e){
-
-
-e.preventDefault();
-
-
-
-let tickets =
-JSON.parse(
-localStorage.getItem("tickets")
-) || [];
-
-
-
-let number =
-tickets.length + 1;
-
-
-
-let ticketID =
-"FT-2026-" +
-String(number).padStart(5,"0");
-
-
-
-let ticket = {
-
-
-id:ticketID,
-
-customer:
-document.getElementById("customer").value,
-
-
-company:
-document.getElementById("company").value,
-
-
-device:
-document.getElementById("device").value,
-
-
-category:
-document.getElementById("category").value,
-
-
-priority:
-document.getElementById("priority").value,
-
-
-problem:
-document.getElementById("problem").value,
-
-
-technician:
-document.getElementById("technician").value,
-
-
-status:
-"New",
-
-
-date:
-new Date().toLocaleDateString()
-
-
-
-};
-
-
-
-tickets.push(ticket);
-
-
-
-localStorage.setItem(
-"tickets",
-JSON.stringify(tickets)
-);
-
-
-
-alert(
-"Ticket berjaya disimpan\n" 
-+ ticketID
-);
-
-
-
-window.location=
-"tickets.html";
-
-
-  
-
-});
-
-
-}
-
+function loadTickets(){
 
 
 let table =
 document.getElementById("ticketTable");
 
 
+if(!table)
+return;
 
-if(table){
 
 
 let tickets =
@@ -129,8 +17,11 @@ localStorage.getItem("tickets")
 
 
 
-tickets.forEach(
-function(t){
+table.innerHTML="";
+
+
+
+tickets.forEach(t=>{
 
 
 table.innerHTML += `
@@ -139,35 +30,79 @@ table.innerHTML += `
 <tr>
 
 
+<td>${t.id}</td>
+
+
+<td>${t.date}</td>
+
+
+<td>${t.customer}</td>
+
+
+<td>${t.device}</td>
+
+
+<td>${t.category}</td>
+
+
+<td>${t.priority}</td>
+
+
 <td>
-${t.id}
+
+
+<select 
+onchange="updateStatus('${t.id}',this.value)"
+class="form-control">
+
+
+<option ${t.status=="New"?"selected":""}>
+New
+</option>
+
+
+<option ${t.status=="In Progress"?"selected":""}>
+In Progress
+</option>
+
+
+<option ${t.status=="Pending"?"selected":""}>
+Pending
+</option>
+
+
+<option ${t.status=="Completed"?"selected":""}>
+Completed
+</option>
+
+
+</select>
+
+
 </td>
 
 
 <td>
-${t.customer}
-</td>
 
 
-<td>
-${t.category}
-</td>
+<button
+class="btn btn-warning btn-sm"
+onclick="editTicket('${t.id}')">
+
+Edit
+
+</button>
 
 
-<td>
-${t.status}
-</td>
 
-
-<td>
-
-<button 
+<button
 class="btn btn-danger btn-sm"
 onclick="deleteTicket('${t.id}')">
 
 Delete
 
 </button>
+
 
 
 </td>
@@ -179,7 +114,6 @@ Delete
 `;
 
 
-
 });
 
 
@@ -187,35 +121,4 @@ Delete
 
 
 
-function deleteTicket(id){
-
-
-let tickets =
-JSON.parse(
-localStorage.getItem("tickets")
-);
-
-
-
-tickets =
-tickets.filter(
-x=>x.id != id
-);
-
-
-
-localStorage.setItem(
-"tickets",
-JSON.stringify(tickets)
-);
-
-
-
-location.reload();
-
-
-}
-
-
-
-
+loadTickets();
