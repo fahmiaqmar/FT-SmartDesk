@@ -268,5 +268,38 @@ location.reload();
 }
 
 
+function updateStatus(id,status){
+
+
+let tickets =
+JSON.parse(
+localStorage.getItem("tickets")
+);
+
+
+
+let ticket =
+tickets.find(
+x=>x.id==id
+);
+
+
+
+ticket.status=status;
+
+
+
+localStorage.setItem(
+"tickets",
+JSON.stringify(tickets)
+);
+
+
+alert("Status Updated");
+
+
+}
+
+
 
 
