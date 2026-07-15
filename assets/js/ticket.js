@@ -102,8 +102,114 @@ window.location=
 "tickets.html";
 
 
+  
+  
 
 });
+
+
+}
+
+
+
+let table =
+document.getElementById("ticketTable");
+
+
+
+if(table){
+
+
+let tickets =
+JSON.parse(
+localStorage.getItem("tickets")
+) || [];
+
+
+
+tickets.forEach(
+function(t){
+
+
+table.innerHTML += `
+
+
+<tr>
+
+
+<td>
+${t.id}
+</td>
+
+
+<td>
+${t.customer}
+</td>
+
+
+<td>
+${t.category}
+</td>
+
+
+<td>
+${t.status}
+</td>
+
+
+<td>
+
+<button 
+class="btn btn-danger btn-sm"
+onclick="deleteTicket('${t.id}')">
+
+Delete
+
+</button>
+
+
+</td>
+
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+function deleteTicket(id){
+
+
+let tickets =
+JSON.parse(
+localStorage.getItem("tickets")
+);
+
+
+
+tickets =
+tickets.filter(
+x=>x.id != id
+);
+
+
+
+localStorage.setItem(
+"tickets",
+JSON.stringify(tickets)
+);
+
+
+
+location.reload();
 
 
 }
