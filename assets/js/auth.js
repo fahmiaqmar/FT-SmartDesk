@@ -34,3 +34,12 @@ alert("Username atau password salah");
 
 
 }
+
+
+function logout(){
+
+localStorage.removeItem("login");
+
+window.location="index.html";
+
+}
